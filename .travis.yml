@@ -9,6 +9,7 @@ cache:
     - .jest
 before_script:
   - npm install -g npm@latest
+  - npm install
   - npm install jest-expo
 script:
   - npm ci
