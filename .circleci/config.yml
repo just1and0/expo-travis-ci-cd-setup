@@ -12,7 +12,6 @@ jobs:
             - run: rm -f package-lock.json && npm install
             - run: npm install jest-expo
             - run: sudo npm install -g expo-cli
-            - run: npm test
             - run: npm ci
             - run: npx jest --ci
 
