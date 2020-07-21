@@ -1,6 +1,20 @@
-- run: npm install
-- run: npm install -g npm@latest
-- run: npm install jest-expo
-- run: npm install -g expo-cli
-- run: npm ci
-- run: npx jest --ci
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  build-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm install jest-expo
+            - run: npm install -g expo-cli
+            - run: npm ci
+            -run: npx jest --ci
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test
