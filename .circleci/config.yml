@@ -22,7 +22,6 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm ci
             - run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
             - run: npx expo publish --non-interactive
 
