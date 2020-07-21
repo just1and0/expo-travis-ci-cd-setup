@@ -11,7 +11,7 @@ jobs:
           steps:
             - run: rm -f package-lock.json && npm install
             - run: npm install jest-expo
-            - run: npm install -g expo-cli
+            - run: sudo npm install -g expo-cli
             - run: npm test
 
 workflows:
