@@ -1,43 +1,24 @@
-version: 2
-publish: &publish
-  working_directory: ~/my-app
-  docker:
-    - image: circleci/node:10.4.1
-  steps:
-    - checkout
-
-    - run:
-        name: Installing dependencies
-        command: npm ci
-
-    - run:
-        name: Login into Expo
-        command: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-
-    - run:
-        name: Publish to Expo
-        command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel $EXPO_RELEASE_CHANNEL
-
-jobs:
-  publish_to_expo_dev:
-    environment:
-      EXPO_RELEASE_CHANNEL: dev
-    <<: *publish
-
-  publish_to_expo_prod:
-    environment:
-      EXPO_RELEASE_CHANNEL: default
-    <<: *publish
-
-workflows:
-  version: 2
-  my_app:
-    jobs:
-      - publish_to_expo_dev:
-          filters:
-            branches:
-              only: development
-      - publish_to_expo_prod:
-          filters:
-            branches:
-              only: master
+- run:
+  name: Setting up dependences
+  command: npm install -g npm@latest
+  command: npm install
+  command: npm install jest-expo
+  command: npm install -g expo-cli
+- run:
+  name: Run test
+  command: npm ci
+  command: npx jest --ci
+- run:
+ name: Login into Expo
+ command: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+- run:
+ name: Save current branch name to an env variable
+ command: |
+   if [ "${CIRCLE_BRANCH}" == "master" ]; then
+     echo 'export EXPO_RELEASE_CHANNEL="default"' >> $BASH_ENV
+   else
+     echo 'export EXPO_RELEASE_CHANNEL=$CIRCLE_BRANCH' >> $BASH_ENV
+   fi
+- run:
+ name: Publish to Expo
+ command: npx expo publish --non-interactive --max-workers 1 -- release-channel $EXPO_RELEASE_CHANNEL
