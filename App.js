@@ -5,7 +5,10 @@ import { StyleSheet, Text, View } from "react-native";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Welcome to EXPO CI/CD BUILD - by Oluwatobi Shokunbi.</Text>
+      <Text>
+        Welcome to EXPO CI/CD BUILD (Travis CI, Circle CI) - by Oluwatobi
+        Shokunbi.
+      </Text>
       <StatusBar style="auto" />
     </View>
   );
