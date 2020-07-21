@@ -12,8 +12,8 @@ jobs:
             - run: npm install
             - run: npm install jest-expo
             - run: npm install -g expo-cli
-            - run: npm ci
-            - run: npx jest --ci
+            - run: npm test
+
 workflows:
   build-and-test:
     jobs:
