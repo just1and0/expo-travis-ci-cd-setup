@@ -14,7 +14,7 @@ jobs:
             - run: sudo npm install -g expo-cli
             - run: npm ci
             - run: npx jest --ci
-jobs:
+
   publish-to-expo:
     executor:
       name: node/default
@@ -25,7 +25,6 @@ jobs:
             - run: npm ci
             - run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
             - run: npx expo publish --non-interactive
-             
 
 workflows:
   build-and-test:
